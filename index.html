@@ -114,7 +114,7 @@ font-family:"Times New Roman",serif'>Step 4: Partition the Disk</span></b></p>
 
 <p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
 "Times New Roman",serif'>Root Partition: Create partition (sda1) and set the
-type to Linux Filesystem – 6GB</span></p>
+type to Linux Filesystem â€“ 6GB</span></p>
 
 <p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
 "Times New Roman",serif'>Swap Partition: Use 1 GB , setting it to Linux swap in
@@ -129,19 +129,19 @@ case we need to add any other partitions later on</span></p>
 font-family:"Times New Roman",serif'>Step 5: Format the Partitions</span></b></p>
 
 <p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
-"Times New Roman",serif'>mkfs.ext4 /dev/sda1       # Format root partition</span></p>
+"Times New Roman",serif'>mkfs.ext4 /dev/sda1Â Â Â Â Â Â  # Format root partition</span></p>
 
 <p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
-"Times New Roman",serif'>mkswap /dev/sda2          # Format swap partition</span></p>
+"Times New Roman",serif'>mkswap /dev/sda2Â Â Â Â Â Â Â Â Â  # Format swap partition</span></p>
 
 <p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
-"Times New Roman",serif'>swapon /dev/sda2          # Enable swap</span></p>
+"Times New Roman",serif'>swapon /dev/sda2Â Â Â Â Â Â Â Â Â  # Enable swap</span></p>
 
 <p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
 font-family:"Times New Roman",serif'>Step 6: Mount the Partitions</span></b></p>
 
 <p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
-"Times New Roman",serif'>mount /dev/sda1g/mnt      # Mount root partition</span></p>
+"Times New Roman",serif'>mount /dev/sda1g/mntÂ Â Â Â Â  # Mount root partition</span></p>
 
 <p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
 font-family:"Times New Roman",serif'>Step 7: Install Essential Packages</span></b></p>
@@ -197,7 +197,7 @@ style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:<
 /etc/hosts</span></p>
 
 <p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
-"Times New Roman",serif'>echo &quot;::1       localhost&quot; &gt;&gt;
+"Times New Roman",serif'>echo &quot;::1Â Â Â Â Â Â  localhost&quot; &gt;&gt;
 /etc/hosts</span></p>
 
 <p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
@@ -231,8 +231,8 @@ style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:<
 
 <p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
 font-family:"Times New Roman",serif'>Error</span></b><span style='font-size:
-12.0pt;line-height:107%;font-family:"Times New Roman",serif'>: Received “EFI
-variables are not supported on this system” error, indicating that the VM was
+12.0pt;line-height:107%;font-family:"Times New Roman",serif'>: Received â€œEFI
+variables are not supported on this systemâ€ error, indicating that the VM was
 set to BIOS mode instead of UEFI.</span></p>
 
 <p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
