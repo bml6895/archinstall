@@ -1,0 +1,485 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 15 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Aptos;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:8.0pt;
+	margin-left:0in;
+	line-height:107%;
+	font-size:11.0pt;
+	font-family:"Aptos",sans-serif;}
+.MsoChpDefault
+	{font-size:11.0pt;
+	font-family:"Aptos",sans-serif;}
+.MsoPapDefault
+	{margin-bottom:8.0pt;
+	line-height:107%;}
+@page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US style='word-wrap:break-word'>
+
+<div class=WordSection1>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Arch Linux VM Installation and
+Configuration</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:16.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Initial Setup and Installation using Arch
+ISO </span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 1: Boot into the Arch Linux Live
+Environment</span></b></p>
+
+<ol style='margin-top:0in' start=1 type=1>
+ <li class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+     "Times New Roman",serif'>Download and install VirtualBox</span></li>
+ <li class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+     "Times New Roman",serif'>Download the arch linux iso from the archlinux
+     downloads page (magnet)</span></li>
+</ol>
+
+<p class=MsoNormal style='margin-left:.5in'><span style='font-size:12.0pt;
+line-height:107%;font-family:"Times New Roman",serif'>For this project I
+originally tried using Mac, however after spending hours trying to figure out
+how to even get the iso to boot I ended up switching to my desktop windows pc
+which went much smoother</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 2: Connect to the Internet</span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>For me, my pc is connected to ethernet, so no other
+additional steps were required to connect to the internet other than verifying
+I was connected</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>To verify the internet connection:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>ping -c 3 google.com</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 3: Update the System Clock</span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>timedatectl set-ntp true</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 4: Partition the Disk</span></b></p>
+
+<ol style='margin-top:0in' start=1 type=1>
+ <li class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+     "Times New Roman",serif'>Open the partitioning tool:</span></li>
+</ol>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>cfdisk /dev/sda</span></p>
+
+<ol style='margin-top:0in' start=2 type=1>
+ <li class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+     "Times New Roman",serif'>Select GPT as the label type when prompted.</span></li>
+ <li class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+     "Times New Roman",serif'>Create two partitions:</span></li>
+</ol>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>*For this vm I had 8 GB of space available</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Root Partition: Create partition (sda1) and set the
+type to Linux Filesystem – 6GB</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Swap Partition: Use 1 GB , setting it to Linux swap in
+case we need to add any other partitions later on</span></p>
+
+<ol style='margin-top:0in' start=4 type=1>
+ <li class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+     "Times New Roman",serif'>Write and type yes to confirm the changes</span></li>
+</ol>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 5: Format the Partitions</span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>mkfs.ext4 /dev/sda1       # Format root partition</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>mkswap /dev/sda2          # Format swap partition</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>swapon /dev/sda2          # Enable swap</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 6: Mount the Partitions</span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>mount /dev/sda1g/mnt      # Mount root partition</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 7: Install Essential Packages</span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>pacstrap /mnt base linux linux-firmware</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 8: Generate fstab</span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 9: Chroot into the New System</span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>arch-chroot /mnt</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 10: Configure the System</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Set Time Zone</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>ln -sf /usr/share/zoneinfo/Region/City /etc/localtime</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>hwclock --systohc</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Generate Locales</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>echo &quot;LANG=en_US.UTF-8&quot; &gt;
+/etc/locale.conf</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>locale-gen</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Set Hostname</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>echo &quot;Bradens-VM&quot; &gt; /etc/hostname</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>echo &quot;127.0.0.1 localhost&quot; &gt;&gt;
+/etc/hosts</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>echo &quot;::1       localhost&quot; &gt;&gt;
+/etc/hosts</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>echo &quot;127.0.1.1 Bradens-VM.localdomain
+archvm&quot; &gt;&gt; /etc/hosts</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Set Root Password</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>passwd</span></p>
+
+<p class=MsoNormal><b><span style='font-size:16.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Bootloader Installation</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 11: Install and Configure the
+Bootloader</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Initial Attempt (Encountered EFI Error)</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>grub-install --target=x86_64-efi --efi-directory=/boot
+--bootloader-id=GRUB</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>grub-mkconfig -o /boot/grub/grub.cfg</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Error</span></b><span style='font-size:
+12.0pt;line-height:107%;font-family:"Times New Roman",serif'>: Received “EFI
+variables are not supported on this system” error, indicating that the VM was
+set to BIOS mode instead of UEFI.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Switch to BIOS Mode Installation</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Since the disk was partitioned with GPT, a BIOS boot
+partition was required.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Add a BIOS Boot Partition</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>cfdisk /dev/sda</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Create a 1MB partition and set it as the &quot;BIOS
+boot&quot; type.</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Write the changes and exit </span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Install GRUB in BIOS Mode</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Pacman -Sy grub</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>grub-install --target=i386-pc /dev/sda</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>grub-mkconfig -o /boot/grub/grub.cfg</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 12:</span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Exit Chroot: exit</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Unmount Partitions: umount -R /mnt</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Reboot: reboot</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>^ Note - In the VM settings within VirtualBox- remove
+the iso file from the image</span></p>
+
+<p class=MsoNormal><b><span style='font-size:16.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Assignment Modifications</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 1: Install a Desktop Environment (DE)</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Install Xorg</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>pacman -S xorg</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Install LXQT</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>pacman -S lxqt</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Install and Enable Display Manager</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>pacman -S sddm</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>systemctl enable sddm</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 2: Create User Accounts with Sudo
+Permissions</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Install sudo</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>pacman -S sudo</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Create User Accounts</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>useradd -m -G wheel braden</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>useradd -m -G wheel justin</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>useradd -m -G wheel codi</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Set Passwords</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>passwd braden</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>passwd justin</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>passwd codi</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Enforce Password Change on First Login for
+Instructor Accounts</span></b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>chage -d 0 justin</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>chage -d 0 codi</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Configure sudoers</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>visudo</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Uncomment the line: %wheel ALL=(ALL) ALL </span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 3: Install a Different Shell</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Install Zsh</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:
+pacman -S zsh</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Change Default Shell</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>chsh -s /bin/zsh braden</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>chsh -s /bin/zsh justin</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>chsh -s /bin/zsh codi</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 4: Install SSH</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Install OpenSSH</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:
+pacman -S openssh</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Enable SSH</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>
+to start at boot: systemctl enable sshd</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Start SSH Service</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:
+systemctl start sshd</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 5: Enable Terminal Color Coding</span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Edit /etc/pacman.conf:nano /etc/pacman.conf</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Uncomment Color under [options].</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 6: Set System to Boot into the GUI
+Desktop Environment</span></b></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>Since sddm was enabled earlier, the system will
+automatically boot into the GUI.</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Step 7: Add Aliases to Shell Configuration</span></b></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Edit the Zsh Configuration File</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>nano ~/.zshrc</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Add Aliases</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>alias ll='ls -la'</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>alias update='sudo pacman -Syu'</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>alias cls='clear'</span></p>
+
+<p class=MsoNormal><b><span style='font-size:12.0pt;line-height:107%;
+font-family:"Times New Roman",serif'>Source the Configuration</span></b><span
+style='font-size:12.0pt;line-height:107%;font-family:"Times New Roman",serif'>:</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>source ~/.zshrc</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>reboot</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>&nbsp;</span></p>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:107%;font-family:
+"Times New Roman",serif'>When you relaunch the VM, it should look like this</span></p>
+
+<p class=MsoNormal><img width=624 height=388 id="Picture 1"
+src="Arch%20Install_files/image001.png"
+alt="A screenshot of a computer&#10;&#10;Description automatically generated"></p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>
